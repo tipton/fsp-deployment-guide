@@ -41,7 +41,6 @@ env.ssh_key_dir = '~/projects/fsp-deployment-guide/ssh_keys'
 def bootstrap():
     env.ssh_key_filepath = os.path.join(env.ssh_key_dir, env.host_string + "_prod_key")
     # if this is a rebuild, use existing keys for this installation
-    print('Testing existence of {}'.format(env.ssh_key_filepath))
     # make an absolute /path/filename
     check_file = env.ssh_key_filepath.replace('~', '/Users/{}'.format(os.getlogin()))
     if not os.path.isfile(check_file):
