@@ -15,14 +15,14 @@ fqdn: cyoa.402server.com
 app_dir: /home/{{deploy_user}}/{{app_name}}
 ## local directory SSL certificates should be located here
 ## do not include a trailing slash
-ssl_certs_dir: ~/fsp-deployment-guide/ssl_cert
+ssl_certs_dir: ~/projects/fsp-deployment-guide/ssl_cert
 
 
 # Chapter 5: Source Control
 ## directory where deploy_key was created and stored.
 ## do not include a trailing slash
-local_deploy_key_dir: ~/fsp-deployment-guide/deploy_key
-code_repository: ssh://git@github.com/makaimc/choose-your-own-adventure-presentations.git
+local_deploy_key_dir: ~/projects/fsp-deployment-guide/deploy_key
+code_repository: ssh://git@github.com/tipton/choose-your-own-adventure-presentations.git
 
 
 # Chapter 6: Databases
