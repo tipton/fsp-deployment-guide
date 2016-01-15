@@ -40,8 +40,13 @@ env.ssh_key_dir = '~/projects/fsp-deployment-guide/ssh_keys'
 """
 def bootstrap():
     env.ssh_key_filepath = os.path.join(env.ssh_key_dir, env.host_string + "_prod_key")
-    local('ssh-keygen -t rsa -b 2048 -f {}'.format(env.ssh_key_filepath))
-    local('cp {} {}/authorized_keys'.format(env.ssh_key_filepath + ".pub", env.ssh_key_dir))
+    # if this is a rebuild, use existing keys for this installation
+    print('Testing existence of {}'.format(env.ssh_key_filepath))
+    # make an absolute /path/filename
+    check_file = env.ssh_key_filepath.replace('~', '/Users/{}'.format(os.getlogin()))
+    if not os.path.isfile(check_file):
+        local('ssh-keygen -t rsa -b 2048 -f {}'.format(env.ssh_key_filepath))
+        local('cp {} {}/authorized_keys'.format(env.ssh_key_filepath + ".pub", env.ssh_key_dir))
 
     sed('/etc/ssh/sshd_config', '^UsePAM yes', 'UsePAM no')
     sed('/etc/ssh/sshd_config', '^PermitRootLogin yes', 'PermitRootLogin no')
