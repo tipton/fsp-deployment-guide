@@ -47,6 +47,8 @@ def bootstrap():
     if not os.path.isfile(check_file):
         local('ssh-keygen -t rsa -b 2048 -f {}'.format(env.ssh_key_filepath))
         local('cp {} {}/authorized_keys'.format(env.ssh_key_filepath + ".pub", env.ssh_key_dir))
+    # ssh requires that access to key file is restricted
+    local('chmod 600 {}'.format(check_file))
 
     sed('/etc/ssh/sshd_config', '^UsePAM yes', 'UsePAM no')
     sed('/etc/ssh/sshd_config', '^PermitRootLogin yes', 'PermitRootLogin no')
