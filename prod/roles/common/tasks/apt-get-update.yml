@@ -1,0 +1,12 @@
+
+# Test single apt-ger update command
+
+
+---
+- hosts: cyoa.402server.com
+  tasks:
+      - name: apt update before packages are installed
+        apt: update_cache=yes
+        sudo: yes
+        notify:
+            - apg-get updated
